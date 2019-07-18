@@ -1,0 +1,5 @@
+packages:
+  curl:
+    - "7.65.1-r0"
+  net-tools:
+    - "1.60_git20140218-r2"

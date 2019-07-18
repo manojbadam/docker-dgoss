@@ -1,0 +1,44 @@
+file:
+  /app/server.js:
+    exists: true
+  /app/package.json:
+    exists: true
+  /app/node_modules:
+    exists: true
+    filetype: directory
+
+file:
+{{range $name, $val := .Vars.dependencies}}
+  /app/node_modules/{{ $name }}:
+    exists: true
+    filetype: directory
+{{end}}
+
+
+file:
+  /usr/bin/node:
+    exists: true
+    owner: root
+    group: root    
+  /usr/bin/npm:
+    exists: true
+    owner: root
+    group: root    
+
+command:
+  node --version:
+    exit-status: 0
+    stdout:
+      - v10.16.0
+    timeout: 10000
+  npm --version:
+    exit-status: 0
+    stdout:
+      - "6.9.0"
+    timeout: 10000    
+
+http:
+  http://localhost:3000/health:
+    status: 200
+    timeout: 5000
+    body: ["I'm alive"]

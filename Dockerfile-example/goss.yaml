@@ -1,0 +1,52 @@
+# Define the packages One by one
+# package:
+#   curl:
+#     installed: true
+#     versions: 
+#       - "7.65.1-r0"
+  
+#   net-tools:
+#     installed: true
+#     versions: 
+#       - "1.60_git20140218-r2"
+
+# Define a local array and loop through them
+# Here we cannot define the package versions
+# package:
+#   {{- range mkSlice "curl" "net-tools" }}
+#     {{.}}:
+#       installed: true
+#   {{end}}
+
+# package:
+  # {{- range mkSlice "curl" "net-tools" }}
+  #   {{.}}:
+  #     installed: true
+  #     versions:
+  #       {{if eq . "curl"}}
+  #       - "7.65.1-r0"
+  #       {{end}}
+  #       {{if eq . "net-tools"}}
+  #       - "1.60_git20140218-r2"
+  #       {{end}}
+  # {{end}}
+
+# Defining if/else condition for package versions
+# package:
+#   {{- range mkSlice "curl" "net-tools" }}
+#     {{.}}:
+#       installed: true
+#       versions: {{if eq . "curl"}} ["7.65.1-r0"] {{else}} ["1.60_git20140218-r2"] {{end}}
+#   {{end}}
+
+# Using Variables for Versions
+package:
+{{range $name, $vers := .Vars.packages}}
+  {{$name}}:
+    installed: true
+    versions:
+    {{range $vers}}
+      - {{.}}
+    {{end}}
+{{end}}
+

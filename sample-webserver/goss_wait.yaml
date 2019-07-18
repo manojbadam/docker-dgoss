@@ -1,0 +1,3 @@
+port:
+  tcp6:3000:
+    listening: true
